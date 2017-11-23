@@ -1,0 +1,45 @@
+# Compiled class file
+*.class
+
+# gradle
+
+lib/*
+lib
+build/*
+build
+.gradle/*
+.gradle
+out/*
+out
+
+# mac
+
+
+# idea
+
+.idea/*
+.idea
+remember-me-back.iml
+
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+
+# mac
+DS_Store
+/.nb-gradle/

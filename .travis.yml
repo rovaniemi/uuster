@@ -1,0 +1,10 @@
+language: java
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: heroku
+  api_key:
+    secure: nZoKDF2Enppf69gaZJFq4PAgOowaWyXXQIflmUmb1CP1hlkMRnQdKLkExTRqIPTyWTrTJQnV92sremL9HcAjmzsMLneHKi2fcHV0YNw/UfRt90m4pKnipIctU8Iql+4rdWULGwHcrNt09g5wYqToFtaPS2zqh/B4SejoPrn3d8JrlRO8L+GaD5g3e+oERLbb+FsopNlwRmWQOk+BZInY0b/UCtkAUEztfqSE8FZ3Z6GaPiCKR91lS+0gpdekvnrIsbFG3hsAdZ7cDflbzrWSbM2YTitNZmaXYpFERuSScv5daWF9Ha+tOsTEsiK3p0ZlFstrOgwj2bGFyW+FWU5g5bdlmx+94M8BrB4HFzI3sXy5mTygApkp8EDsoX3XNzbGeqb3iivnIc+36MnC++BmkHISXtjtqi8T/76H3aI2hphTV+SchHxnGlHEahCQL/nyMP70l2yTVbgq5iFC2D6WJBiiZGvuR4Xn1ee5ctYPCS3dDaDl+qAjDChhkUDrEsACHbkgF+xXg+StuJCxx1Pqbei9h3eXXRro+rA6jkyVGHscoPCJBl62zFLAAcnYsk9fBmK7TAOD3qV6ziPkSrKOIznu2bYZtPR/yKLx2NDSlqIvL7LuVfYVCJ7x+F3NqZzev/wGmrGxriRpcLU5MANKMoYYitD2xHcJ5AKk7OCLHWA=
+  app: uuster
+  on:
+    repo: rovaniemi/uuster
