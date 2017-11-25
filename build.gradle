@@ -1,21 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'application'
+apply plugin: 'idea'
+apply plugin: 'jacoco'
+apply plugin: "io.franzbecker.gradle-lombok"
+
 buildscript {
-    ext {
-        springBootVersion = '2.0.0.M6'
-    }
     repositories {
         mavenCentral()
-        maven { url 'https://repo.spring.io/libs-snapshot' }
     }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'jacoco'
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "io.franzbecker:gradle-lombok:1.11"
+    }
+}
 
+logging.captureStandardOutput LogLevel.QUIET
+
+project.ext {
+    junitVersion = "4.12"
+}
 
 group = 'org.karlin'
 version = '0.1.0'
@@ -29,37 +43,46 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-bootRepackage {
-    mainClass = 'uuster.Uuster'
-}
+mainClassName='uuster.Uuster'
 
 repositories {
-    maven {
-        url("https://plugins.gradle.org/m2/")
-    }
+    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
 }
 
+
 dependencies {
-    compile("com.google.code.gson:gson")
+
+    compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.postgresql:postgresql")
+    compile("com.heroku.sdk:heroku-jdbc:0.1.1")
+    compile("org.postgresql:postgresql:9.4.1212.jre7")
+    compile("com.google.code.gson:gson")
     compile("org.apache.commons:commons-dbcp2")
     compile("com.h2database:h2")
-    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.0.0.6.M') {
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test')    {
         exclude(module: 'commons-logging')
     }
     testCompile group: 'com.jayway.jsonpath', name: 'json-path', version:'2.2.0'
 }
 
-task stage(dependsOn: ['build', 'clean'])
-build.mustRunAfter clean
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
 
 jacocoTestReport {
     reports {
-        xml.enabled = true
-        html.enabled = true
+        xml.enabled true
+        html.enabled true
+    }
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['main/**'])
+        })
     }
 }
-
-check.dependsOn jacocoTestReport
