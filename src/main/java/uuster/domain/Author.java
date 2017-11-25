@@ -5,7 +5,9 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,8 +41,9 @@ public class Author extends AbstractPersistable<Long> {
     @Length(min = 6, max = 300)
     private String password;
 
-    private Picture picture;
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
+    private List<ProfilePicture> pictures;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "authors")
     private List<News> news;
 }

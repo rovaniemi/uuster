@@ -1,11 +1,12 @@
 package uuster.domain;
 
-import org.apache.tomcat.jni.Time;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class News extends AbstractPersistable<Long> {
 
+    @OneToMany(mappedBy = "news", fetch = FetchType.EAGER)
+    private List<NewsPicture> pictures;
+
     @NotBlank
     @Length(min = 1, max = 100)
     private String title;
@@ -26,10 +30,8 @@ public class News extends AbstractPersistable<Long> {
     @Length(min = 20, max = 20000)
     private String text;
 
-    @NotBlank
-    private Picture picture;
-
     private LocalDate time;
 
-    private List<Author> authorList;
+    @ManyToMany
+    private List<Author> authors;
 }
