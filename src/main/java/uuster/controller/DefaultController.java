@@ -8,6 +8,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import uuster.repository.NewsRepository;
+import uuster.validator.LoginForm;
 import uuster.validator.SignUpForm;
 import javax.validation.Valid;
 
@@ -34,5 +35,18 @@ public class DefaultController {
             return "signup";
         }
         return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@Valid LoginForm loginForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "login";
+        }
+        return "redirect:/";
     }
 }
