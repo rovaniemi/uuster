@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService{
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private AuthorRepository authorRepository;
@@ -32,4 +32,6 @@ public class CustomUserDetailsService implements UserDetailsService{
 
         return new org.springframework.security.core.userdetails.User(author.getUsername(), author.getPassword(), grantedAuthorities);
     }
+
+
 }

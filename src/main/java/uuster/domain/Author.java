@@ -45,4 +45,22 @@ public class Author extends AbstractPersistable<Long> {
 
     @ManyToMany
     private Set<Role> roles;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Author author = (Author) o;
+
+        return username.equals(author.username);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + username.hashCode();
+        return result;
+    }
 }
