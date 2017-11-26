@@ -68,6 +68,7 @@ dependencies {
         exclude(module: 'commons-logging')
     }
     testCompile group: 'com.jayway.jsonpath', name: 'json-path', version:'2.2.0'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.1.Final'
 }
 
 
