@@ -12,34 +12,37 @@
     <div class="container">
         <div class="columns is-centered">
             <div class="column is-half">
-                <form action="/signup" method="post">
+                <form action="/signup" th:action="@{/signup}" th:object="${signUpForm}" method="POST">
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" name="firstName" id="firstName" placeholder="First Name">
+                        <input class="input" type="text" name="firstName" id="firstName" placeholder="First Name" th:field="*{firstName}">
                         <span class="icon is-small is-left">
                         <i class="fa fa-user"></i>
                     </span>
                     </p>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Invalid First Name</p>
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" name="lastName" id="lastName" placeholder="Last Name">
+                        <input class="input" type="text" name="lastName" id="lastName" placeholder="Last Name" th:field="*{lastName}">
                         <span class="icon is-small is-left">
                         <i class="fa fa-user"></i>
                     </span>
                     </p>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Invalid Last Name</p>
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" name="username" id="username" placeholder="Username">
+                        <input class="input" type="text" name="username" id="username" placeholder="Username" th:field="*{username}">
                         <span class="icon is-small is-left">
                         <i class="fa fa-user"></i>
                     </span>
                     </p>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Invalid username</p>
                 </div>
                 <div class="field">
                     <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="email" name="email" id="email" placeholder="Email">
+                        <input class="input" type="email" name="email" id="email" placeholder="Email" th:field="*{email}">
                         <span class="icon is-small is-left">
                             <i class="fa fa-envelope"></i>
                         </span>
@@ -47,6 +50,7 @@
                             <i class="fa fa-check"></i>
                         </span>
                     </p>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Invalid email</p>
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
@@ -55,6 +59,7 @@
                             <i class="fa fa-lock"></i>
                         </span>
                     </p>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Invalid password</p>
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
@@ -63,6 +68,7 @@
                         <i class="fa fa-lock"></i>
                     </span>
                     </p>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Invalid password</p>
                 </div>
                 <div class="field">
                     <div class="control">

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import uuster.repository.NewsRepository;
 import uuster.service.AuthorService;
@@ -35,12 +36,12 @@ public class DefaultController {
     }
 
     @GetMapping("/signup")
-    public String signUpPage() {
+    public String signUpPage(@ModelAttribute SignUpForm signUpForm) {
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String signUp(@Valid SignUpForm signUpForm, BindingResult bindingResult) {
+    public String signUp(@Valid @ModelAttribute SignUpForm signUpForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "signup";
         }
