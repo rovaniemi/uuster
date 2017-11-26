@@ -50,8 +50,8 @@ repositories {
     maven { url 'https://repo.spring.io/snapshot' }
 }
 
-ext['thymeleaf.version'] = '3.0.0.RELEASE'
-ext['thymeleaf-layout-dialect.version'] = '2.0.0'
+ext['thymeleaf.version'] = '3.0.9.RELEASE'
+ext['thymeleaf-layout-dialect.version'] = '2.2.2'
 
 
 dependencies {
@@ -70,7 +70,7 @@ dependencies {
     testCompile group: 'com.jayway.jsonpath', name: 'json-path', version:'2.2.0'
     compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.1.Final'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.5.8.RELEASE'
-
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
 }
 
 

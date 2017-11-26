@@ -23,7 +23,7 @@ public class News extends AbstractPersistable<Long> {
     private List<NewsPicture> pictures;
 
     @NotBlank
-    @Length(min = 1, max = 100)
+    @Length(min = 1, max = 1000)
     private String title;
 
     @NotBlank

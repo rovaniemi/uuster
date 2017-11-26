@@ -9,7 +9,15 @@
     </div>
 </section>
 <main class="Site-content">
-
+    <div sec:authorize="isAuthenticated()">
+        This content is only shown to authenticated users.
+    </div>
+    <div sec:authorize="hasAuthority('ADMIN')">
+        This content is only shown to administrators.
+    </div>
+    <div sec:authorize="hasAuthority('JOURNALIST')">
+        This content is only shown to users.
+    </div>
 </main>
 <th:block th:replace="/fragments/footer :: footer"></th:block>
 </body>
