@@ -1,0 +1,16 @@
+<html lang="en"
+      class="has-navbar-fixed-top"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="/fragments/head :: head"></th:block>
+<body class="Site">
+<section class="section">
+    <div class="container">
+        <th:block th:replace="/fragments/nav :: nav"></th:block>
+    </div>
+</section>
+<main class="Site-content">
+
+</main>
+<th:block th:replace="/fragments/footer :: footer"></th:block>
+</body>
+</html>

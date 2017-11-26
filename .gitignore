@@ -41,5 +41,5 @@ remember-me-back.iml
 
 
 # mac
-DS_Store
+.DS_Store
 /.nb-gradle/
