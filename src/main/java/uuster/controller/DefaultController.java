@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import uuster.repository.NewsRepository;
+import uuster.service.AuthorService;
+import uuster.service.SecurityService;
 import uuster.validator.LoginForm;
 import uuster.validator.SignUpForm;
 import javax.validation.Valid;
@@ -17,6 +18,15 @@ public class DefaultController {
 
     @Autowired
     private NewsRepository newsRepository;
+
+    @Autowired
+    private AuthorController authorController;
+
+    @Autowired
+    private AuthorService authorService;
+
+    @Autowired
+    private SecurityService securityService;
 
     @GetMapping("*")
     public String list(Model model) {
@@ -30,11 +40,13 @@ public class DefaultController {
     }
 
     @PostMapping("/signup")
-    public String singUp(@Valid SignUpForm signUpForm, BindingResult bindingResult) {
+    public String signUp(@Valid SignUpForm signUpForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "signup";
         }
-        return "redirect:/login";
+        authorService.save(signUpForm);
+        securityService.autologin(signUpForm.getUsername(), signUpForm.getConfirmPassword());
+        return "redirect:/";
     }
 
     @GetMapping("/login")

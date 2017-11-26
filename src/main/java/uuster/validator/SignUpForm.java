@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 
 @NoArgsConstructor
@@ -35,4 +37,9 @@ public class SignUpForm {
     @NotBlank
     @Size(min = 6, max = 300)
     private String confirmPassword;
+
+    @AssertTrue(message="Confirm password field should be equal than password field")
+    private boolean isValid() {
+        return this.password.equals(this.confirmPassword);
+    }
 }
