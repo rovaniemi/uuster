@@ -1,6 +1,6 @@
 # uuster
 
-[![heroku link](https://camo.githubusercontent.com/8d1f0e62ca9067026ead054e935e6cf408a11a12/687474703a2f2f6865726f6b752d62616467652e6865726f6b756170702e636f6d2f3f6170703d616e67756c61726a732d63727970746f267374796c653d666c6174267376673d31)](https://remember-me-back.herokuapp.com/)
+[![heroku link](https://camo.githubusercontent.com/8d1f0e62ca9067026ead054e935e6cf408a11a12/687474703a2f2f6865726f6b752d62616467652e6865726f6b756170702e636f6d2f3f6170703d616e67756c61726a732d63727970746f267374796c653d666c6174267376673d31)](https://uuster.herokuapp.com/)
 [![Build Status](https://api.travis-ci.org/rovaniemi/uuster.svg?branch=master)](https://travis-ci.org/rovaniemi/uuster)
 [![Code Coverage](https://img.shields.io/codecov/c/github/rovaniemi/uuster/master.svg)](https://codecov.io/github/rovaniemi/uuster)
 [![License: MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/rovaniemi/uuster/blob/master/LICENSE)
