@@ -34,5 +34,7 @@ public class News extends AbstractPersistable<Long> {
 
     @ManyToMany
     private List<Author> authors;
-    
+
+    @ManyToMany
+    private List<Tag> tags;
 }
