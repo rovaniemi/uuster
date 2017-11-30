@@ -62,6 +62,4 @@ public class DefaultController {
         }
         return "redirect:/";
     }
-
-
 }
