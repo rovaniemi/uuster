@@ -5,22 +5,19 @@
         </a>
     </div>
     <div class="navbar-end">
-        <a class="navbar-item" href="news/create" sec:authorize="hasAuthority('ADMIN')">
-            Users
-        </a>
-        <a class="navbar-item" href="news/create" sec:authorize="hasAuthority('JOURNALIST')">
+        <a class="navbar-item" href="/news/create" sec:authorize="hasRole('ROLE_JOURNALIST')">
             Create article
         </a>
-        <a class="navbar-item" href="profile/" sec:authorize="isAuthenticated()">
+        <a class="navbar-item" href="/profile/" sec:authorize="isAuthenticated()">
             Profile
         </a>
-        <a class="navbar-item" href="signup" sec:authorize="isAnonymous()">
+        <a class="navbar-item" href="/signup" sec:authorize="isAnonymous()">
             Sign Up
         </a>
-        <a class="navbar-item" href="login" sec:authorize="isAnonymous()">
+        <a class="navbar-item" href="/login" sec:authorize="isAnonymous()">
             Sign In
         </a>
-        <a class="navbar-item" href="logout" sec:authorize="isAuthenticated()">
+        <a class="navbar-item" href="/logout" sec:authorize="isAuthenticated()">
             Sign Out
         </a>
     </div>
