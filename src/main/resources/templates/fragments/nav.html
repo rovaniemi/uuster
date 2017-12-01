@@ -1,25 +1,40 @@
-<nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
-    <div class="navbar-start">
-        <a class="navbar-item" href="/">
-            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" alt="Bulma" />
+<nav class="navbar is-fixed-top is-primary">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="http://bulma.io">
+            <img src="/" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
         </a>
+
+        <a class="navbar-item" href="https://github.com/rovaniemi/uuster" target="_blank">
+      <span class="icon" style="color: #333;">
+        <i class="fa fa-github"></i>
+      </span>
+        </a>
+
+        <div class="navbar-burger burger" data-target="navMenubd-example">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
-    <div class="navbar-end">
-        <a class="navbar-item" href="/news/create" sec:authorize="hasRole('ROLE_JOURNALIST')">
-            Create article
-        </a>
-        <a class="navbar-item" href="/profile/" sec:authorize="isAuthenticated()">
-            Profile
-        </a>
-        <a class="navbar-item" href="/signup" sec:authorize="isAnonymous()">
-            Sign Up
-        </a>
-        <a class="navbar-item" href="/login" sec:authorize="isAnonymous()">
-            Sign In
-        </a>
-        <a class="navbar-item" href="/logout" sec:authorize="isAuthenticated()">
-            Sign Out
-        </a>
+
+    <div id="navMenubd-example" class="navbar-menu">
+        <div class="navbar-end">
+                <a class="navbar-item" href="/news/create" sec:authorize="hasRole('ROLE_JOURNALIST')">
+                    Create article
+                </a>
+                <a class="navbar-item" href="/profile/" sec:authorize="isAuthenticated()">
+                    Profile
+                </a>
+                <a class="navbar-item" href="/signup" sec:authorize="isAnonymous()">
+                    Sign Up
+                </a>
+                <a class="navbar-item" href="/login" sec:authorize="isAnonymous()">
+                    Sign In
+                </a>
+                <a class="navbar-item" href="/logout" sec:authorize="isAuthenticated()">
+                    Sign Out
+                </a>
+            <div class="navbar-item"></div>
+        </div>
     </div>
 </nav>
-

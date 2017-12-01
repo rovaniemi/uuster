@@ -12,7 +12,7 @@
     <div class="container">
         <div class="columns is-centered">
             <div class="column is-half">
-                <form action="/news/create" th:action="@{/signup}" th:object="${signUpForm}" method="POST">
+                <form action="/news/create" th:action="@{/news/create}" th:object="${articleForm}" method="POST">
                     <div class="field">
                         <label class="label">Title</label>
                         <div class="control">
@@ -31,16 +31,25 @@
                             <textarea class="textarea" placeholder="Textarea" name="Text" id="text"></textarea>
                         </div>
                     </div>
-                    <div class="file">
+                    <div class="field">
+                        <label class="label">Title</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="separate tags with a comma" name="tag" id="tag">
+                        </div>
+                    </div>
+                    <div class="file has-name is-fullwidth" style="margin-bottom: 10px;">
                         <label class="file-label">
-                            <input class="file-input" type="file" name="resume">
-                            <span class="file-cta" style="margin-bottom: 10px;">
+                            <input class="file-input" type="file" accept="image/*" name="image", id="file">
+                            <span class="file-cta">
                             <span class="file-icon">
                                 <i class="fa fa-upload"></i>
                             </span>
                             <span class="file-label">
-                            Choose a image...
+                                Choose a image...
                             </span>
+                            </span>
+                            <span class="file-name">
+                                <span id="filename">No file chosen</span>
                             </span>
                         </label>
                     </div>
@@ -56,4 +65,5 @@
 </main>
 <th:block th:replace="fragments/footer :: footer"></th:block>
 </body>
+<script src="/assets/js/file.js"></script>
 </html>

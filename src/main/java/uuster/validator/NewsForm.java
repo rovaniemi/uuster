@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import uuster.domain.NewsPicture;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,6 +18,18 @@ public class NewsForm {
     private String text;
 
     @NotBlank
-    @Length(min = 1, max = 1000)
+    @Length(min = 1, max = 500)
     private String title;
+
+    @NotBlank
+    @Length(min = 1, max = 500)
+    private String lean;
+
+    @NotBlank
+    @Length(min = 1, max = 500)
+    private String tags;
+
+    @NotEmpty
+    private NewsPicture newsPicture;
+
 }
