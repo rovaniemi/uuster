@@ -3,12 +3,9 @@ package uuster.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import uuster.repository.AuthorRepository;
-import uuster.repository.NewsRepository;
+import org.springframework.web.bind.annotation.*;
 import uuster.service.NewsService;
 import uuster.validator.NewsForm;
 
@@ -26,8 +23,13 @@ public class NewsController {
 
     @Secured("ROLE_JOURNALIST")
     @PostMapping("/news/create")
-    public String createArticle(@RequestBody @Validated NewsForm newsForm){
-        newsService.createArticle(newsForm);
+    public String createArticle(@RequestParam("file") String file, @Validated NewsForm newsForm){
+        newsService.createArticle(file, newsForm);
         return "redirect:/";
+    }
+
+    @GetMapping("/news/{id}")
+    public String showArticle(@PathVariable Long id, Model model) {
+        return "news";
     }
 }

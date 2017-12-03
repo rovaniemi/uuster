@@ -23,13 +23,9 @@ public class NewsForm {
 
     @NotBlank
     @Length(min = 1, max = 500)
-    private String lean;
+    private String lead;
 
     @NotBlank
     @Length(min = 1, max = 500)
     private String tags;
-
-    @NotEmpty
-    private NewsPicture newsPicture;
-
 }

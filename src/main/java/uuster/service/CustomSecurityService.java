@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import uuster.domain.Author;
+import uuster.repository.AuthorRepository;
 
 @Service
 public class CustomSecurityService implements SecurityService {
@@ -27,7 +29,6 @@ public class CustomSecurityService implements SecurityService {
         if (userDetails instanceof UserDetails) {
             return ((UserDetails)userDetails).getUsername();
         }
-
         return null;
     }
 

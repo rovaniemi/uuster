@@ -6,10 +6,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -18,9 +17,9 @@ import java.util.List;
 public class Tag extends AbstractPersistable<Long> {
 
     @ManyToMany(mappedBy = "tags")
-    private List<News> news;
+    private Set<News> news;
 
     @NotBlank
-    @Length(min = 10, max = 100)
+    @Length(min = 1, max = 100)
     private String name;
 }

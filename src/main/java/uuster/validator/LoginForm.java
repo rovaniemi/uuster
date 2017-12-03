@@ -19,4 +19,5 @@ public class LoginForm {
     @NotBlank
     @Size(min = 6, max = 300)
     private String password;
+    
 }
