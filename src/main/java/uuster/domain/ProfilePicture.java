@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProfilePicture extends AbstractPersistable<Long> {
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn
     private Author author;
 

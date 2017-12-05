@@ -1,0 +1,88 @@
+<html lang="en"
+      class="has-navbar-fixed-top"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head :: head"></th:block>
+<body class="Site">
+<section class="section">
+    <div class="container">
+        <th:block th:replace="fragments/nav :: nav"></th:block>
+    </div>
+</section>
+<main class="Site-content">
+    <div class="section">
+        <div class="container">
+            <div class="is-hidden-mobile">
+                <div>
+                    <div class="columns is-mobile">
+                        <div class="column is-1">
+                        </div>
+                        <div class="column">
+                            <div class="image is-1by1 sui-avatar img-circle">
+                                <img class="img-circle" th:src="${picture}">
+                            </div>
+                        </div>
+                        <div class="column is-1">
+                        </div>
+                        <div class="column is-two-thirds content">
+                            <p><span class="title is-bold" th:text="${author.firstName} + ' ' + ${author.lastName}">Full name</span><a th:href="@{/profile/{username}/edit(username=${author.username})}" class="button is-small" style="margin: 3px 0px 0px 15px;">Edit</a> </p>
+                            <p><span class="subtitle" th:text="${author.description}"><small>description</small></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="is-hidden-tablet">
+                <div>
+                    <div class="columns is-mobile">
+                        <div class="column">
+                            <div class="image is-1by1 sui-avatar img-circle">
+                                <img class="img-circle" th:src="${picture}">
+                            </div>
+                        </div>
+                        <div class="column is-two-thirds">
+                            <p><span class="title is-bold" th:text="${author.firstName} + ${author.lastName}">Full name</span><br><a th:href="@{/profile/{username}/edit(username=${author.username})}" class="button is-small" style="margin: 3px 0px 0px 0px;">Edit</a> </p>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <p><span class="subtitle" th:text="${author.description}"><small>description</small></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <hr>
+        </div>
+        <div class="container">
+            <div class="columns">
+                <div class="column level is-mobile">
+                    <h1 class="level-item has-text-centered">
+                        <div>
+                            <p th:text="${#lists.size(author.news)}"></p>
+                            <p>Article</p>
+                        </div>
+                    </h1>
+                    <h1 class="level-item has-text-centered">
+                        <div>
+                            <p>0</p>
+                            <p>Comments</p>
+                        </div>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="profile-items">
+                <div class="columns is-multiline is-mobile">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</main>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>

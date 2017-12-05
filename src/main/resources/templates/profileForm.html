@@ -1,0 +1,78 @@
+<html lang="en"
+      class="has-navbar-fixed-top"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head :: head"></th:block>
+<body class="Site">
+<section class="section">
+    <div class="container">
+        <th:block th:replace="fragments/nav :: nav"></th:block>
+    </div>
+</section>
+<main class="Site-content">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <form action="/profile/{username}/edit" th:action="@{/profile/{username}/edit(username=${author.username})}" th:object="${profileForm}" method="POST" enctype="multipart/form-data">
+                    <div class="image is-128x128 is-centered" style="margin-bottom: 40px;margin-left: auto;margin-right: auto;">
+                        <img class="img-circle" th:src="${picture}">
+                    </div>
+                    <div class="field">
+                        <label class="label">First name</label>
+                        <div class="control">
+                            <input class="input" type="text" name="firstName" id="firstName" th:placeholder="${author.firstName}">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Last name</label>
+                        <div class="control">
+                            <input class="input" placeholder="lead" name="lastName" id="lastName" th:placeholder="${author.lastName}">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <p class="control has-icons-left has-icons-right">
+                            <input class="input" type="email" name="email" id="email" placeholder="Email" th:placeholder="${author.email}">
+                            <span class="icon is-small is-left">
+                            <i class="fa fa-envelope"></i>
+                        </span>
+                            <span class="icon is-small is-right">
+                            <i class="fa fa-check"></i>
+                        </span>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <label class="label">Description</label>
+                        <div class="control">
+                            <textarea class="textarea" placeholder="Textarea" name="description" id="description" th:placeholder="${author.description}"></textarea>
+                        </div>
+                    </div>
+                    <div class="file has-name is-fullwidth" style="margin-bottom: 10px;">
+                        <label class="file-label">
+                            <input class="file-input" type="file" accept="image/*" name="file" id="file">
+                            <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fa fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Change profile picture
+                            </span>
+                            </span>
+                            <span class="file-name">
+                                <span id="filename">No file chosen</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-primary" type="submit">Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+<script src="/assets/js/file.js"></script>
+</html>

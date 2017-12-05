@@ -37,14 +37,17 @@ public class Author extends AbstractPersistable<Long> {
     @Length(min = 6, max = 300)
     private String password;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
-    private List<ProfilePicture> pictures;
+    @OneToOne(fetch = FetchType.EAGER)
+    private ProfilePicture picture;
 
     @ManyToMany(mappedBy = "authors")
     private List<News> news;
 
     @ManyToMany
     private Set<Role> roles;
+
+    @Length(min = 6, max = 20000)
+    private String description;
 
     @Override
     public boolean equals(Object o) {

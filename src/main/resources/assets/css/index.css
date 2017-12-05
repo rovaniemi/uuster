@@ -67,3 +67,7 @@ div.column.is-8:first-child {
 .promo-block .container {
     margin: 1rem 5rem;
 }
+
+.img-circle {
+    border-radius: 50%;
+}

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import uuster.domain.Author;
 import uuster.repository.AuthorRepository;
+import uuster.validator.EditForm;
 
 @Service
 public class CustomSecurityService implements SecurityService {
@@ -21,15 +22,21 @@ public class CustomSecurityService implements SecurityService {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private AuthorRepository authorRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(CustomSecurityService.class);
 
     @Override
     public String findLoggedInUsername() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            return ((UserDetails)userDetails).getUsername();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
         }
-        return null;
+        return username;
     }
 
     @Override
@@ -44,4 +51,6 @@ public class CustomSecurityService implements SecurityService {
             logger.debug(String.format("Auto login %s successfully!", username));
         }
     }
+
+
 }

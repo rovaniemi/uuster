@@ -55,4 +55,34 @@ public class News extends AbstractPersistable<Long> {
         this.pictures = new ArrayList<>();
         this.time = LocalDate.now();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        News news = (News) o;
+
+        if (title != null ? !title.equals(news.title) : news.title != null) return false;
+        if (lead != null ? !lead.equals(news.lead) : news.lead != null) return false;
+        if (text != null ? !text.equals(news.text) : news.text != null) return false;
+        if (time != null ? !time.equals(news.time) : news.time != null) return false;
+        if (authors != null ? !authors.equals(news.authors) : news.authors != null) return false;
+        if (tags != null ? !tags.equals(news.tags) : news.tags != null) return false;
+        return pictures != null ? pictures.equals(news.pictures) : news.pictures == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (lead != null ? lead.hashCode() : 0);
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + (time != null ? time.hashCode() : 0);
+        result = 31 * result + (authors != null ? authors.hashCode() : 0);
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
+        result = 31 * result + (pictures != null ? pictures.hashCode() : 0);
+        return result;
+    }
 }
