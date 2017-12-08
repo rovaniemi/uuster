@@ -9,14 +9,28 @@
     </div>
 </section>
 <main class="Site-content">
-    <div sec:authorize="isAuthenticated()">
-        This content is only shown to authenticated users.
-    </div>
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
-        This content is only shown to administrators.
-    </div>
-    <div sec:authorize="hasRole('ROLE_JOURNALIST')">
-        This content is only shown to users.
+    <div class="column is-8 is-offset-2" th:each="article : ${news}">
+        <div class="card article">
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-center">
+                        <img th:src="'/images/profilepicture/' + ${article.authors[0].picture.id}" class="author-image" alt="Placeholder image">
+                    </div>
+                </div>
+                <div class = "columns">
+                    <div class="column">
+                        <figure class="image is-16by9">
+                            <img src="http://www.jasondunn.com/images/Cape-Breton-Lighthouse-16-9-HDR.jpg">
+                        </figure>
+                    </div>
+                    <div class="column">
+                        <p class="title article-title" th:text="${article.title}">Title</p>
+                        <p class="" th:text="${article.time}">date</p>
+                        <a th:href="'/news/' + ${article.id}">read more...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <th:block th:replace="fragments/footer :: footer"></th:block>

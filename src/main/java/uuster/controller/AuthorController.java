@@ -39,7 +39,7 @@ public class AuthorController {
         if(authorRepository.findByUsername(username).getPicture() != null){
             model.addAttribute("picture", "/images/profilepicture/" + authorRepository.findByUsername(username).getPicture().getId());
         } else {
-            model.addAttribute("picture", "/assets/pic/default.jpg");
+            model.addAttribute("picture", "/assets/pic/default.png");
         }
         return "profile";
     }
@@ -51,7 +51,7 @@ public class AuthorController {
             if(authorRepository.findByUsername(username).getPicture() != null){
                 model.addAttribute("picture", "/images/profilepicture/" + authorRepository.findByUsername(username).getPicture().getId());
             } else {
-                model.addAttribute("picture", "/assets/pic/default.jpg");
+                model.addAttribute("picture", "/assets/pic/default.png");
             }
 
             return "profileForm";
