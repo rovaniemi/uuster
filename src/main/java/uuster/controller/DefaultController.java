@@ -7,8 +7,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import uuster.domain.Tag;
 import uuster.repository.NewsRepository;
+import uuster.repository.TagRepository;
 import uuster.service.AuthorService;
+import uuster.service.NewsService;
 import uuster.service.SecurityService;
 import uuster.validator.LoginForm;
 import uuster.validator.SignUpForm;
@@ -18,20 +22,29 @@ import javax.validation.Valid;
 public class DefaultController {
 
     @Autowired
-    private NewsRepository newsRepository;
-
-    @Autowired
-    private AuthorController authorController;
-
-    @Autowired
     private AuthorService authorService;
 
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private TagRepository tagRepository;
+
+    @Autowired
+    private NewsService newsService;
+
     @GetMapping("*")
-    public String list(Model model) {
-        model.addAttribute("news", newsRepository.findAll());
+    public String list(@RequestParam(value="tag", required = false) String tag,
+                       @RequestParam(value="page", required = false) String page,
+                       Model model) {
+
+        if(tagRepository.findByName(tag) == null) {
+            model.addAttribute("tag", "Top stories");
+        } else {
+            model.addAttribute("tag", tagRepository.findByName(tag).getName());
+        }
+        model.addAttribute("news", newsService.getNews(tag, page));
+        model.addAttribute("top", newsService.getTop());
         return "index";
     }
 

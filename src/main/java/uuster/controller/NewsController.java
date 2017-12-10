@@ -36,6 +36,7 @@ public class NewsController {
     @GetMapping("/news/{id}")
     public String showArticle(@PathVariable Long id, Model model) {
         if(newsRepository.getOne(id) == null) return "redirect:/error";
+        newsService.increaseCounterByOne(id);
         model.addAttribute("article", newsRepository.getOne(id));
         return "news";
     }

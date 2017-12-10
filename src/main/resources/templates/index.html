@@ -3,30 +3,82 @@
       xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="fragments/head :: head"></th:block>
 <body class="Site">
-<section class="section">
+<section class="section no-padding">
     <div class="container">
         <th:block th:replace="fragments/nav :: nav"></th:block>
     </div>
 </section>
 <main class="Site-content">
-    <div class="column is-8 is-offset-2" th:each="article : ${news}">
-        <div class="card article">
-            <div class="card-content">
-                <div class="media">
-                    <div class="media-center">
-                        <img th:src="'/images/profilepicture/' + ${article.authors[0].picture.id}" class="author-image" alt="Placeholder image">
-                    </div>
+    <div class="columns">
+        <div class="column column is-6 is-offset-1">
+        <div class="column">
+            <section class="hero is-primary is-small promo-block">
+            <div class="hero-body" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+            <div class="container" style="margin: 1rem;">
+                <h1 class="title" th:text="${tag}">
+                    Tag</h1>
                 </div>
-                <div class = "columns">
+            </div>
+        </section>
+        </div>
+        <div class="column" th:each="article : ${news}">
+            <div class="card article">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-center">
+                            <img th:src="'/images/profilepicture/' + ${article.authors[0].picture.id}" class="author-image" alt="Placeholder image">
+                        </div>
+                    </div>
                     <div class="column">
                         <figure class="image is-16by9">
-                            <img src="http://www.jasondunn.com/images/Cape-Breton-Lighthouse-16-9-HDR.jpg">
+                            <img th:src="'/images/newspicture/' + ${article.pictures[0].id}">
                         </figure>
                     </div>
-                    <div class="column">
-                        <p class="title article-title" th:text="${article.title}">Title</p>
-                        <p class="" th:text="${article.time}">date</p>
-                        <a th:href="'/news/' + ${article.id}">read more...</a>
+                    <div class = "columns">
+                        <div class="column">
+                            <div class="field is-grouped is-grouped-multiline" >
+                                <div class="control" th:each="tag : ${article.tags}">
+                                    <div class="tags has-addons">
+                                        <a class="tag is-link" th:text="${tag.name}" th:href="@{/(tag=${tag.name})}">tag</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="article-link-and-title">
+                            <p class="title article-title" th:text="${article.title}">Title</p>
+                            <div class="article-link-time">
+                                <a class="article-link" th:href="'/news/' + ${article.id}">read more...</a>
+                                <p class="article-time" th:text="${article.time}">date</p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="column is-4">
+            <div class="column">
+                <section class="hero is-primary is-small promo-block">
+                    <div class="hero-body" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                        <div class="container" style="margin: 1rem;">
+                            <h1 class="title">Most popular</h1>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="column">
+                <div class="card article">
+                    <div class="card-table">
+                        <div class="content">
+                            <table class="table is-fullwidth is-striped">
+                                <tbody>
+                                <tr th:each="top_article,iterStat : ${top}">
+                                    <td width="5%"><a th:href="'/news/' + ${top_article.id}" class="pagination-link is-rounded" aria-label="Goto page 1" th:text="${iterStat.count}">1</a></td>
+                                    <td th:text="${top_article.title}" style="padding-top: 10px">title</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

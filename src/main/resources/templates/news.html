@@ -19,18 +19,26 @@
                         </div>
                         <div class="media-content has-text-centered">
                             <p class="title article-title" th:text="${article.title}">Title</p>
-                            <p class="subtitle is-6 article-subtitle">
-                                <a th:href="'/profile/' + ${article.authors[0].username}" th:text="'@' + ${article.authors[0].username}">@</a> <p th:text="${article.time}">date</p>
+                            <p class="subtitle is-6 article-subtitle" th:each="user : ${article.authors}">
+                                <a th:href="'/profile/' + ${user.username}" th:text="'@' + ${user.username}">@</a>
                             </p>
+                            <p class="subtitle is-6 article-subtitle" th:text="${article.time}">date</p>
+                            <div class="field is-grouped is-grouped-multiline"  style="justify-content:  center;">
+                                <div class="control" th:each="tag : ${article.tags}">
+                                    <div class="tags has-addons">
+                                        <a class="tag is-link" th:text="${tag.name}">tag</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <figure class="image is-16by9">
-                        <img th:src="'/newspicture/' + ${article.pictures[0].id}">
-                        <img src="http://www.jasondunn.com/images/Cape-Breton-Lighthouse-16-9-HDR.jpg">
+                        <img th:src="'/images/newspicture/' + ${article.pictures[0].id}">
                     </figure>
                     <div class="content article-body">
 
-                        <p th:text="${article.text}">text</p>
+                        <h3 class="has-text-justified lead" th:text="${article.lead}">lead</h3>
+                        <p class="has-text-justified" th:text="${article.text}">text</p>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,8 @@
 package uuster.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -31,9 +33,6 @@ public class NewsService {
 
     @Autowired
     private NewsRepository newsRepository;
-
-    @Autowired
-    private CustomSecurityService customSecurityService;
 
     @Autowired
     private AuthorRepository authorRepository;
@@ -93,5 +92,44 @@ public class NewsService {
         createArticle(file, newsForm, authorRepository.findByUsername(username));
     }
 
+    @Transactional
+    public List<News> getNews(String tag, String page) {
+        if(isParsable(page) && tagRepository.findByName(tag) != null) {
+            return listWithTag(Integer.parseInt(page), tagRepository.findByName(tag));
+        } else if (isParsable(page)) {
+            return list(Integer.parseInt(page));
+        } else {
+            return list(0);
+        }
+    }
 
+    public List<News> list(Integer page) {
+        Pageable pageable = new PageRequest(page, 10);
+        return newsRepository.findAll(pageable).getContent();
+    }
+
+    public List<News> listWithTag(Integer page, Tag tag) {
+        Pageable pageable = new PageRequest(page, 10);
+        return newsRepository.findAllByTagsContains(tag, pageable);
+    }
+
+    public static boolean isParsable(String input){
+        boolean parsable = true;
+        try{
+            Integer.parseInt(input);
+        }catch(NumberFormatException e){
+            parsable = false;
+        }
+        return parsable;
+    }
+
+    public void increaseCounterByOne(long id) {
+        News news = this.newsRepository.getOne(id);
+        news.setCounter(news.getCounter() + 1);
+        this.newsRepository.saveAndFlush(news);
+    }
+
+    public List<News> getTop() {
+        return this.newsRepository.findTop10ByOrderByCounterDesc();
+    }
 }
