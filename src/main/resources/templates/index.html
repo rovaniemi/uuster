@@ -65,6 +65,19 @@
                 </div>
             </div>
         </div>
+            <div class="column">
+                <nav class="pagination is-small" role="navigation" aria-label="pagination">
+                    <p class="pagination-previous" th:if="${page} eq 1">Previous</p>
+                    <a class="pagination-previous" th:unless="${page} eq 1" th:href="@{/(page=${page - 1},tag=${tag})}">Previous</a>
+                    <p class="pagination-next" th:if="${page * 5} gt ${#lists.size(news)}">Next page</p>
+                    <a class="pagination-next" th:unless="${page * 5} gt ${#lists.size(news)}" th:href="@{/(page=${page + 1}, tag=${tag})}">Next page</a>
+                    <ul class="pagination-list">
+                        <li>
+                            <a class="pagination-link is-current" aria-label="Page" aria-current="page" th:text="${page}"></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
         <div class="column is-4">
             <div class="column">
@@ -93,22 +106,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="column column is-6 is-offset-1">
-    <div class="column">
-    <nav class="pagination is-small" role="navigation" aria-label="pagination">
-        <p class="pagination-previous" th:if="${page} eq 1">Previous</p>
-        <a class="pagination-previous" th:unless="${page} eq 1" th:href="@{/(page=${page - 1},tag=${tag})}">Previous</a>
-        <p class="pagination-next" th:if="${page * 5} gt ${#lists.size(news)}">Next page</p>
-        <a class="pagination-next" th:unless="${page * 5} gt ${#lists.size(news)}" th:href="@{/(page=${page + 1}, tag=${tag})}">Next page</a>
-        <ul class="pagination-list">
-            <li>
-                <a class="pagination-link is-current" aria-label="Page" aria-current="page" th:text="${page}"></a>
-            </li>
-        </ul>
-    </nav>
-
-    </div>
     </div>
 </main>
 <th:block th:replace="fragments/footer :: footer"></th:block>

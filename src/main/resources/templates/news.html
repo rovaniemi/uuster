@@ -12,8 +12,11 @@
     <section class="articles">
         <div class="column is-8 is-offset-2">
             <div class="card article">
-                <form action="/news/create" th:action="'/news/' + ${article.id} + '/delete/'" method="POST">
+                <form action="/news/1/delete/" method="POST" sec:authorize="hasRole('ROLE_JOURNALIST')">
                     <button class="delete right-top"></button>
+                </form>
+                <form action="/news/1/edit/" method="GET" sec:authorize="hasRole('ROLE_JOURNALIST')">
+                    <button class="button is-small right-top" style="right: 60px;top: 14px;">Edit</button>
                 </form>
                 <div class="card-content">
                     <div class="media">
