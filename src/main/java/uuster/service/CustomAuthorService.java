@@ -16,6 +16,7 @@ import uuster.validator.SignUpForm;
 import java.io.IOException;
 import java.util.HashSet;
 
+@Transactional
 @Service
 public class CustomAuthorService implements AuthorService {
 
@@ -45,7 +46,6 @@ public class CustomAuthorService implements AuthorService {
         return authorRepository.findByUsername(username);
     }
 
-    @Transactional
     public void editAuthor(String username, MultipartFile file, EditForm editForm) {
         Author author = authorRepository.findByUsername(username);
         if(editForm.getFirstName() != null && !editForm.getFirstName().trim().isEmpty()) author.setFirstName(editForm.getFirstName());

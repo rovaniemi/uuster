@@ -2,6 +2,7 @@ package uuster.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -20,6 +21,7 @@ import uuster.validator.LoginForm;
 import uuster.validator.SignUpForm;
 import javax.validation.Valid;
 
+@Transactional
 @Controller
 public class DefaultController {
 

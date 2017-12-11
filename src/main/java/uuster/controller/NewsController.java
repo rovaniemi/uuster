@@ -18,6 +18,7 @@ import uuster.validator.SignUpForm;
 
 import javax.validation.Valid;
 
+@Transactional
 @Controller
 public class NewsController {
 
@@ -46,7 +47,6 @@ public class NewsController {
         return "redirect:/";
     }
 
-    @Transactional
     @GetMapping("/news/{id}")
     public String showArticle(@PathVariable Long id, Model model) {
         if(newsRepository.getOne(id) == null) return "redirect:/error";

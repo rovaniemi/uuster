@@ -16,6 +16,7 @@ import uuster.domain.ProfilePicture;
 import uuster.repository.NewsPictureRepository;
 import uuster.repository.ProfilePictureRepository;
 
+@Transactional
 @Controller
 @RequestMapping("/images")
 public class ImageController {
@@ -26,7 +27,6 @@ public class ImageController {
     @Autowired
     private ProfilePictureRepository profilePictureRepository;
 
-    @Transactional
     @RequestMapping(value = "/newspicture/{id}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> viewNewsPicture(@PathVariable Long id) {
         NewsPicture fo = newsPictureRepository.findOne(id);
@@ -38,7 +38,6 @@ public class ImageController {
         return new ResponseEntity<>(fo.getContent(), headers, HttpStatus.CREATED);
     }
 
-    @Transactional
     @GetMapping("/profilepicture/{id}")
     public ResponseEntity<byte[]> viewProfilePicture(@PathVariable Long id) {
         ProfilePicture fo = profilePictureRepository.findOne(id);

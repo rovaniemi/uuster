@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Transactional
 @Service
 public class NewsService {
 
@@ -38,7 +39,6 @@ public class NewsService {
     @Autowired
     private AuthorRepository authorRepository;
 
-    @Transactional
     public void createArticle(NewsForm newsForm, Author author){
         NewsPicture picture = new NewsPicture();
         Set<Tag> tagsSet = saveAndLoadTags(newsForm.getTags());
@@ -50,7 +50,6 @@ public class NewsService {
         }
     }
 
-    @Transactional
     public Set<Tag> saveAndLoadTags(String tags) {
         String[] tagStrings = tags.split(",");
         Set<Tag> tagSet = new HashSet<>();
@@ -66,7 +65,6 @@ public class NewsService {
         return tagSet;
     }
 
-    @Transactional
     public void createArticle(NewsForm newsForm) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
@@ -78,7 +76,6 @@ public class NewsService {
         createArticle(newsForm, authorRepository.findByUsername(username));
     }
 
-    @Transactional
     public List<News> getNews(String tag, String page) {
         if(isParsable(page) && tagRepository.findByName(tag) != null) {
             return listWithTag(Integer.parseInt(page) - 1, tagRepository.findByName(tag));
@@ -132,7 +129,6 @@ public class NewsService {
         newsRepository.delete(news);
     }
 
-    @Transactional
     public void editArticle(long id, ArticleEdit articleEdit) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
@@ -144,7 +140,6 @@ public class NewsService {
         editArticle(articleEdit, authorRepository.findByUsername(username), id);
     }
 
-    @Transactional
     public void editArticle(ArticleEdit articleEdit, Author author, long id) {
         News news = newsRepository.getOne(id);
         news.setTags(saveAndLoadTags(articleEdit.getTags()));
@@ -172,7 +167,6 @@ public class NewsService {
         return tagString;
     }
 
-    @Transactional
     public void savePicture(News news, MultipartFile file) {
         NewsPicture newsPicture = new NewsPicture();
         newsPicture.setNews(news);
