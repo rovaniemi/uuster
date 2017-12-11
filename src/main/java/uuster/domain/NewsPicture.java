@@ -31,4 +31,9 @@ public class NewsPicture extends AbstractPersistable<Long> {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] content;
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

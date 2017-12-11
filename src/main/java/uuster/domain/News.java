@@ -80,4 +80,9 @@ public class News extends AbstractPersistable<Long> {
         result = 31 * result + (time != null ? time.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

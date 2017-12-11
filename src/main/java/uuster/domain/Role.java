@@ -42,4 +42,9 @@ public class Role extends AbstractPersistable<Long> {
         result = 31 * result + (authors != null ? authors.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

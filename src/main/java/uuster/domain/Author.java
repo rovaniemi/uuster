@@ -66,4 +66,9 @@ public class Author extends AbstractPersistable<Long> {
         result = 31 * result + username.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }
