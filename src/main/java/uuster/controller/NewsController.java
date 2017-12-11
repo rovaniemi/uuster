@@ -62,16 +62,24 @@ public class NewsController {
 
     @Secured("ROLE_JOURNALIST")
     @PostMapping("/news/{id}/edit")
-    public String editArticle(@PathVariable Long id,@Validated ArticleEdit articleEdit, @RequestParam MultipartFile file) {
-        newsService.editArticle(id, articleEdit, file);
+    public String editArticle(@Valid @ModelAttribute ArticleEdit articleEdit, BindingResult bindingResult, @PathVariable Long id, Model model) {
+        if (articleEdit.getFile() == null && !articleEdit.getFile().getContentType().startsWith("image/")){
+            bindingResult.addError(new FieldError("File", "file","Invalid File"));
+        }
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("id", id);
+            return "articleEdit";
+        }
+        newsService.editArticle(id, articleEdit);
         return "redirect:/news/" + id;
     }
 
     @Secured("ROLE_JOURNALIST")
     @GetMapping("/news/{id}/edit")
-    public String getEditArticle(@PathVariable Long id, Model model) {
+    public String getEditArticle(@Valid @ModelAttribute ArticleEdit articleEdit, @PathVariable Long id, Model model) {
+        model.addAttribute("id", id);
         model.addAttribute("article", newsRepository.getOne(id));
-        model.addAttribute("tags", newsService.getTags(id));
+        model.addAttribute("tagssep", newsService.getTags(id));
         return "articleEdit";
     }
 }

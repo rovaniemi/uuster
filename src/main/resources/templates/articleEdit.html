@@ -12,34 +12,42 @@
     <div class="container">
         <div class="columns is-centered">
             <div class="column is-half">
-                <form action="/news/{id}/edit" th:action="'/news/' + ${article.id} + '/edit'" th:object="${articleEdit}" method="POST" enctype="multipart/form-data">
+                <form action="/news/{id}/edit" th:action="'/news/' + ${id} + '/edit'" th:object="${articleEdit}" method="POST" enctype="multipart/form-data">
                     <div class="field">
                         <label class="label">Title</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Title" name="title" id="title" th:value="${article.title}">
+                            <input th:if="${article != null}" class="input" type="text" placeholder="Title" name="title" id="title" th:value="${article.title}">
+                            <input th:unless="${article != null}" class="input" type="text" placeholder="Title" name="title" id="title" th:field="*{title}">
                         </div>
+                        <p class="help is-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Invalid title</p>
                     </div>
                     <div class="field">
                         <label class="label">Lead</label>
                         <div class="control">
-                            <textarea class="textarea" placeholder="lead" name="lead" id="lead" th:text="${article.lead}"></textarea>
+                            <textarea th:if="${article != null}" class="textarea" placeholder="lead" name="lead" id="lead" th:text="${article.lead}" th:field="*{lead}"></textarea>
+                            <textarea th:unless="${article != null}" class="textarea" placeholder="lead" name="lead" id="lead" th:field="*{lead}"></textarea>
                         </div>
+                        <p class="help is-danger" th:if="${#fields.hasErrors('lead')}" th:errors="*{lead}">Invalid lead</p>
                     </div>
                     <div class="field">
                         <label class="label">Text</label>
                         <div class="control">
-                            <textarea class="textarea" placeholder="Textarea" name="text" id="text" th:text="${article.text}"></textarea>
+                            <textarea th:if="${article != null}" class="textarea" placeholder="Textarea" name="text" id="text" th:text="${article.text}" th:field="*{text}"></textarea>
+                            <textarea th:unless="${article != null}" class="textarea" placeholder="Textarea" name="text" id="text" th:field="*{text}"></textarea>
                         </div>
+                        <p class="help is-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Invalid Text</p>
                     </div>
                     <div class="field">
                         <label class="label">Tags</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="separate tags with a comma" name="tags" id="tags" th:value="${tags}">
+                            <input th:if="${article != null}" class="input" type="text" placeholder="separate tags with a comma" name="tags" id="tags" th:value="${tagssep}">
+                            <input th:unless="${tagssep != null}" class="input" type="text" placeholder="separate tags with a comma" name="tags" id="tags" th:field="*{tags}">
                         </div>
+                        <p class="help is-danger" th:if="${#fields.hasErrors('tags')}" th:errors="*{tags}">Invalid tags</p>
                     </div>
                     <div class="file has-name is-fullwidth" style="margin-bottom: 10px;">
                         <label class="file-label">
-                            <input class="file-input" type="file" accept="image/*" name="file" id="file">
+                            <input class="file-input" type="file" accept="image/*" name="file" id="file" th:field="*{file}">
                             <span class="file-cta">
                             <span class="file-icon">
                                 <i class="fa fa-upload"></i>
@@ -53,6 +61,7 @@
                             </span>
                         </label>
                     </div>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('file')}" th:errors="*{file}">Invalid File</p>
                     <div class="field">
                         <div class="control">
                             <button class="button is-primary" type="submit">Submit</button>

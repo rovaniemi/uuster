@@ -13,7 +13,7 @@
         <div class="column column is-6 is-offset-1">
         <div class="column">
             <section class="hero is-primary is-small promo-block">
-            <div class="hero-body" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+            <div class="hero-body" style="padding-top: 0.25rem; padding-bottom: 0.25rem;">
             <div class="container" style="margin: 1rem;">
                 <h1 class="title" th:text="${tag}">
                     Tag</h1>
@@ -27,7 +27,7 @@
                     <button class="delete right-top"></button>
                 </form>
                 <form action="/news/1/edit/" method="GET" sec:authorize="hasRole('ROLE_JOURNALIST')">
-                    <button class="button is-small right-top" style="right: 65px;top: 14px;">Edit</button>
+                    <button class="button is-small right-top" style="right: 60px;top: 14px;">Edit</button>
                 </form>
                 <div class="card-content">
                     <div class="media">
@@ -38,10 +38,10 @@
                             <img src="/assets/pic/default.png" class="author-image" alt="Placeholder image">
                         </div>
                     </div>
+                    <figure class="image is-16by9">
+                        <img th:src="'/images/newspicture/' + ${article.pictures[0].id}">
+                    </figure>
                     <div class="column">
-                        <figure class="image is-16by9">
-                            <img th:src="'/images/newspicture/' + ${article.pictures[0].id}">
-                        </figure>
                     </div>
                     <div class = "columns">
                         <div class="column">
@@ -54,6 +54,7 @@
                             </div>
                             <div class="article-link-and-title">
                             <p class="title article-title" th:text="${article.title}">Title</p>
+                            <h3 class="has-text-justified lead-bottom" th:text="${article.lead}">lead</h3>
                             <div class="article-link-time">
                                 <a class="article-link" th:href="'/news/' + ${article.id}">read more...</a>
                                 <p class="article-time" th:text="${article.time}">date</p>
@@ -68,7 +69,7 @@
         <div class="column is-4">
             <div class="column">
                 <section class="hero is-primary is-small promo-block">
-                    <div class="hero-body" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+                    <div class="hero-body" style="padding-top: 0.25rem; padding-bottom: 0.25rem;">
                         <div class="container" style="margin: 1rem;">
                             <h1 class="title">Most popular</h1>
                         </div>
@@ -82,8 +83,8 @@
                             <table class="table is-fullwidth is-striped">
                                 <tbody>
                                 <tr th:each="top_article,iterStat : ${top}">
-                                    <td width="5%"><a th:href="'/news/' + ${top_article.id}" class="pagination-link is-rounded" aria-label="Goto page 1" th:text="${iterStat.count}">1</a></td>
-                                    <td th:text="${top_article.title}" style="padding-top: 10px">title</td>
+                                    <td width="5%"><a th:href="'/news/' + ${top_article.id}" class="pagination-link is-rounded" th:text="${iterStat.count}">1</a></td>
+                                    <td style="padding-top: 10px"><a th:text="${top_article.title}" th:href="'/news/' + ${top_article.id}" style="color:#4a4a4a;"></a></td>
                                 </tr>
                                 </tbody>
                             </table>

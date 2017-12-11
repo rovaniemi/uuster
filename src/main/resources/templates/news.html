@@ -44,7 +44,7 @@
                     <div class="content article-body">
 
                         <h3 class="has-text-justified lead" th:text="${article.lead}">lead</h3>
-                        <p class="has-text-justified" th:text="${article.text}">text</p>
+                        <p class="has-text-justified" data-th-utext="${#strings.replace(#strings.escapeXml(article.text),'&#10;','&lt;br&gt;')}"></p>
                     </div>
                 </div>
             </div>

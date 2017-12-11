@@ -133,7 +133,7 @@ public class NewsService {
     }
 
     @Transactional
-    public void editArticle(long id, ArticleEdit articleEdit, MultipartFile file) {
+    public void editArticle(long id, ArticleEdit articleEdit) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
         if (principal instanceof UserDetails) {
@@ -141,20 +141,20 @@ public class NewsService {
         } else {
             username = principal.toString();
         }
-        editArticle(file, articleEdit, authorRepository.findByUsername(username), id);
+        editArticle(articleEdit, authorRepository.findByUsername(username), id);
     }
 
     @Transactional
-    public void editArticle(MultipartFile file, ArticleEdit articleEdit, Author author, long id) {
+    public void editArticle(ArticleEdit articleEdit, Author author, long id) {
         News news = newsRepository.getOne(id);
         news.setTags(saveAndLoadTags(articleEdit.getTags()));
         news.setText(articleEdit.getText());
         if(news.getAuthors().stream().filter(e -> e.getUsername().equals(author.getUsername())).count() == 0) news.getAuthors().add(author);
         news.setTitle(articleEdit.getTitle());
         news.setLead(articleEdit.getLead());
-        if(file != null && !file.isEmpty()) {
+        if(articleEdit.getFile() != null && !articleEdit.getFile().isEmpty()) {
             news.getPictures().stream().forEach(e -> newsPictureRepository.delete(e.getId()));
-            savePicture(news, file);
+            savePicture(news, articleEdit.getFile());
         }
     }
 
