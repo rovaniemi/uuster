@@ -15,9 +15,8 @@ import uuster.repository.NewsRepository;
 import uuster.repository.TagRepository;
 import uuster.validator.ArticleEdit;
 import uuster.validator.NewsForm;
-
-import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -120,7 +119,7 @@ public class NewsService {
     }
 
     public List<News> getTop() {
-        return this.newsRepository.findTop10ByOrderByCounterDesc();
+        return this.newsRepository.findTop10ByTimeBetweenOrderByCounterDesc(LocalDateTime.now().minusWeeks(1), LocalDateTime.now());
     }
 
     public void deleteArticle(Long id) {

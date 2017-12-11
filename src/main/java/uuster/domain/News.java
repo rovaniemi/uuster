@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,7 +36,7 @@ public class News extends AbstractPersistable<Long> {
     @Length(min = 20, max = 20000)
     private String text;
 
-    private LocalDate time;
+    private LocalDateTime time;
 
     @ManyToMany
     private List<Author> authors;
@@ -55,7 +56,7 @@ public class News extends AbstractPersistable<Long> {
         this.authors = new ArrayList<>();
         this.tags = tags;
         this.pictures = new ArrayList<>();
-        this.time = LocalDate.now();
+        this.time = LocalDateTime.now();
         this.counter = 0;
     }
 
