@@ -3,6 +3,7 @@ package uuster.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -45,6 +46,7 @@ public class NewsController {
         return "redirect:/";
     }
 
+    @Transactional
     @GetMapping("/news/{id}")
     public String showArticle(@PathVariable Long id, Model model) {
         if(newsRepository.getOne(id) == null) return "redirect:/error";
