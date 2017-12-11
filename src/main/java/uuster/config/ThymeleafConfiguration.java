@@ -5,6 +5,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 public class ThymeleafConfiguration {
@@ -19,5 +23,12 @@ public class ThymeleafConfiguration {
             return new LayoutDialect();
         }
 
+        @Bean
+        public TemplateEngine templateEngine() {
+            TemplateEngine templateEngine = new TemplateEngine();
+            templateEngine.addDialect(new Java8TimeDialect());
+            return templateEngine;
+        }
     }
+
 }

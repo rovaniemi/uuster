@@ -6,15 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import uuster.domain.Tag;
-import uuster.repository.NewsRepository;
 import uuster.repository.TagRepository;
-import uuster.service.AuthorService;
+import uuster.service.AuthorServiceInterface;
 import uuster.service.NewsService;
 import uuster.service.SecurityService;
 import uuster.validator.LoginForm;
@@ -26,7 +23,7 @@ import javax.validation.Valid;
 public class DefaultController {
 
     @Autowired
-    private AuthorService authorService;
+    private AuthorServiceInterface authorServiceInterface;
 
     @Autowired
     private SecurityService securityService;
@@ -61,7 +58,7 @@ public class DefaultController {
 
     @PostMapping("/signup")
     public String signUp(@Valid @ModelAttribute SignUpForm signUpForm, BindingResult bindingResult) {
-        if (authorService.findByUsername(signUpForm.getUsername()) != null){
+        if (authorServiceInterface.findByUsername(signUpForm.getUsername()) != null){
             bindingResult.addError(new FieldError("Author", "username","Username is already taken"));
         }
 
@@ -69,7 +66,7 @@ public class DefaultController {
             return "signup";
         }
 
-        authorService.save(signUpForm);
+        authorServiceInterface.save(signUpForm);
         securityService.autologin(signUpForm.getUsername(), signUpForm.getConfirmPassword());
         return "redirect:/";
     }

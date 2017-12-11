@@ -4,8 +4,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import uuster.domain.News;
 import uuster.domain.Tag;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

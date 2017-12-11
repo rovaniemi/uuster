@@ -24,9 +24,6 @@ public class CustomSecurityService implements SecurityService {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private AuthorRepository authorRepository;
-
     private static final Logger logger = LoggerFactory.getLogger(CustomSecurityService.class);
 
     @Override

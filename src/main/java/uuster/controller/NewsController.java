@@ -7,15 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import uuster.repository.NewsRepository;
 import uuster.service.NewsService;
 import uuster.validator.ArticleEdit;
 import uuster.validator.NewsForm;
-import uuster.validator.SignUpForm;
-
 import javax.validation.Valid;
 
 @Transactional

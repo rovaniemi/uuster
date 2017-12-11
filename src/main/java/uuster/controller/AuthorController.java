@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import uuster.domain.Author;
 import uuster.repository.AuthorRepository;
 import uuster.service.AuthorService;
-import uuster.service.CustomAuthorService;
 import uuster.service.CustomSecurityService;
 import uuster.validator.EditForm;
 
@@ -26,11 +25,11 @@ public class AuthorController {
     private AuthorRepository authorRepository;
 
     @Autowired
-    private CustomAuthorService customAuthorService;
+    private AuthorService customAuthorService;
 
     @GetMapping("/profile")
     @Secured("ROLE_JOURNALIST")
-    public String getProfile(Model model) {
+    public String getProfile() {
         return "redirect:/profile/" + customSecurityService.findLoggedInUsername();
     }
 
@@ -55,7 +54,6 @@ public class AuthorController {
             } else {
                 model.addAttribute("picture", "/assets/pic/default.png");
             }
-
             return "profileForm";
         }
         return "redirect:/error";

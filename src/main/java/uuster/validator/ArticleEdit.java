@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class    ArticleEdit {
+public class ArticleEdit {
 
     @Length(min = 20, max = 20000)
     private String text;

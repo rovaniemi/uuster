@@ -31,7 +31,7 @@
                             <p class="subtitle is-6 article-subtitle" th:each="user : ${article.authors}">
                                 <a th:href="'/profile/' + ${user.username}" th:text="'@' + ${user.username}">@</a>
                             </p>
-                            <p class="subtitle is-6 article-subtitle" th:text="${article.time}">date</p>
+                            <p class="subtitle is-6 article-subtitle" th:text="${#temporals.format(article.time, 'dd-MM-yyyy HH:mm')}">date</p>
                             <div class="field is-grouped is-grouped-multiline"  style="justify-content:  center;">
                                 <div class="control" th:each="tag : ${article.tags}">
                                     <div class="tags has-addons">

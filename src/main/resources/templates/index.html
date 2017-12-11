@@ -57,7 +57,7 @@
                             <h3 class="has-text-justified lead-bottom" th:text="${article.lead}">lead</h3>
                             <div class="article-link-time">
                                 <a class="article-link" th:href="'/news/' + ${article.id}">read more...</a>
-                                <p class="article-time" th:text="${article.time}">date</p>
+                                <p class="article-time" th:text="${#temporals.format(article.time, 'dd-MM-yyyy HH:mm')}">date</p>
                             </div>
                             </div>
                         </div>
