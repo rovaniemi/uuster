@@ -1,0 +1,24 @@
+<html lang="en"
+      class="has-navbar-fixed-top"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head :: head"></th:block>
+<body class="Site">
+<section class="section no-padding">
+    <div class="container">
+        <th:block th:replace="fragments/nav :: nav"></th:block>
+    </div>
+</section>
+<main class="Site-content">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="column is-6 is-offset-3">
+                <h1 class="title">
+                    Oh no, you've found junior developer's homepage!
+                </h1>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>
