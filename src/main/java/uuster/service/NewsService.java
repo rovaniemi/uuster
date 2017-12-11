@@ -17,10 +17,7 @@ import uuster.validator.ArticleEdit;
 import uuster.validator.NewsForm;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Transactional
 @Service
@@ -50,7 +47,7 @@ public class NewsService {
     }
 
     public Set<Tag> saveAndLoadTags(String tags) {
-        String[] tagStrings = tags.split(",");
+        String[] tagStrings = Arrays.stream(tags.split(",")).filter(e -> !e.trim().isEmpty()).toArray(String[]::new);
         Set<Tag> tagSet = new HashSet<>();
         for (String tag : tagStrings) {
             Tag t = tagRepository.findByName(tag.toLowerCase().trim());
