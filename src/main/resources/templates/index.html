@@ -67,13 +67,13 @@
         </div>
             <div class="column">
                 <nav class="pagination is-small" role="navigation" aria-label="pagination">
-                    <p class="pagination-previous" th:if="${page * 1} lt 3">Previous</p>
-                    <a class="pagination-previous" th:unless="${page * 1} lt 3" th:href="@{/(page=${page - 2},tag=${tag})}">Previous</a>
+                    <p class="pagination-previous" th:if="${page * 1} lt 1">Previous</p>
+                    <a class="pagination-previous" th:unless="${page * 1} lt 1" th:href="@{/(page=${page - 1},tag=${tag})}">Previous</a>
                     <p class="pagination-next" th:if="${page * 5} gt ${#lists.size(news)}">Next page</p>
                     <a class="pagination-next" th:unless="${page * 5} gt ${#lists.size(news)}" th:href="@{/(page=${page + 1}, tag=${tag})}">Next page</a>
                     <ul class="pagination-list">
                         <li>
-                            <a class="pagination-link is-current" aria-label="Page" aria-current="page" th:text="${page}"></a>
+                            <a class="pagination-link is-current" aria-label="Page" aria-current="page" th:text="${page + 1}"></a>
                         </li>
                     </ul>
                 </nav>

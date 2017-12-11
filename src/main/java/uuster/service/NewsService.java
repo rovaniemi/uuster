@@ -74,9 +74,9 @@ public class NewsService {
 
     public List<News> getNews(String tag, String page) {
         if(isParsable(page) && tagRepository.findByName(tag) != null) {
-            return listWithTag(Integer.parseInt(page) - 1, tagRepository.findByName(tag));
+            return listWithTag(Integer.parseInt(page), tagRepository.findByName(tag));
         } else if (isParsable(page)) {
-            return list(Integer.parseInt(page) - 1);
+            return list(Integer.parseInt(page));
         } else if (tagRepository.findByName(tag) != null) {
             return listWithTag(0, tagRepository.findByName(tag));
         } else {
@@ -95,8 +95,8 @@ public class NewsService {
     }
 
     public int getPage(String string) {
-        if(isParsable(string)) return Integer.parseInt(string) + 1;
-        else return 1;
+        if(isParsable(string)) return Integer.parseInt(string);
+        else return 0;
     }
 
     public boolean isParsable(String input){
