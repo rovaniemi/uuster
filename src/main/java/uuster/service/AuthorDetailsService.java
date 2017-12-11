@@ -30,6 +30,4 @@ public class AuthorDetailsService implements UserDetailsService {
         }
         return new org.springframework.security.core.userdetails.User(author.getUsername(), author.getPassword(), grantedAuthorities);
     }
-
-
 }

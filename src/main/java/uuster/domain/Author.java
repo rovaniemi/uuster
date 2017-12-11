@@ -17,6 +17,14 @@ import lombok.NoArgsConstructor;
 @Data
 public class Author extends AbstractPersistable<Long> {
 
+    public Author (String firstName, String lastName, String username, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
     @NotBlank
     @Length(min = 1, max = 35)
     private String firstName;
