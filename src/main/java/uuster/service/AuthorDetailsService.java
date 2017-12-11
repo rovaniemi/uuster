@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class AuthorDetailsService implements UserDetailsService {
 
     @Autowired
     private AuthorRepository authorRepository;

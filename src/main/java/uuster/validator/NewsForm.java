@@ -21,11 +21,11 @@ public class NewsForm {
     private String text;
 
     @NotBlank
-    @Length(min = 1, max = 500)
+    @Length(min = 1, max = 1000)
     private String title;
 
     @NotBlank
-    @Length(min = 1, max = 500)
+    @Length(min = 20, max = 20000)
     private String lead;
 
     @NotBlank

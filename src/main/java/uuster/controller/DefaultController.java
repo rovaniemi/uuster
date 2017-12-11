@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import uuster.repository.TagRepository;
 import uuster.service.AuthorServiceInterface;
 import uuster.service.NewsService;
-import uuster.service.SecurityService;
+import uuster.service.SecurityServiceInterface;
 import uuster.validator.LoginForm;
 import uuster.validator.SignUpForm;
 import javax.validation.Valid;
@@ -26,7 +26,7 @@ public class DefaultController {
     private AuthorServiceInterface authorServiceInterface;
 
     @Autowired
-    private SecurityService securityService;
+    private SecurityServiceInterface securityServiceInterface;
 
     @Autowired
     private TagRepository tagRepository;
@@ -67,7 +67,7 @@ public class DefaultController {
         }
 
         authorServiceInterface.save(signUpForm);
-        securityService.autologin(signUpForm.getUsername(), signUpForm.getConfirmPassword());
+        securityServiceInterface.autologin(signUpForm.getUsername(), signUpForm.getConfirmPassword());
         return "redirect:/";
     }
 

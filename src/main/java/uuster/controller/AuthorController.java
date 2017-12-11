@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import uuster.domain.Author;
 import uuster.repository.AuthorRepository;
 import uuster.service.AuthorService;
-import uuster.service.CustomSecurityService;
+import uuster.service.SecurityService;
 import uuster.validator.EditForm;
 
 @Transactional
@@ -19,7 +19,7 @@ import uuster.validator.EditForm;
 public class AuthorController {
 
     @Autowired
-    private CustomSecurityService customSecurityService;
+    private SecurityService customSecurityService;
 
     @Autowired
     private AuthorRepository authorRepository;
