@@ -12,10 +12,16 @@
     <section class="articles">
         <div class="column is-8 is-offset-2">
             <div class="card article">
+                <form action="/news/create" th:action="'/news/' + ${article.id} + '/delete/'" method="POST">
+                    <button class="delete right-top"></button>
+                </form>
                 <div class="card-content">
                     <div class="media">
-                        <div class="media-center">
+                        <div class="media-center" th:if="${article.authors[0]?.picture}">
                             <img th:src="'/images/profilepicture/' + ${article.authors[0].picture.id}" class="author-image" alt="Placeholder image">
+                        </div>
+                        <div class="media-center" th:unless="${article.authors[0]?.picture}">
+                            <img src="/assets/pic/default.png" class="author-image" alt="Placeholder image">
                         </div>
                         <div class="media-content has-text-centered">
                             <p class="title article-title" th:text="${article.title}">Title</p>
@@ -26,7 +32,7 @@
                             <div class="field is-grouped is-grouped-multiline"  style="justify-content:  center;">
                                 <div class="control" th:each="tag : ${article.tags}">
                                     <div class="tags has-addons">
-                                        <a class="tag is-link" th:text="${tag.name}">tag</a>
+                                        <a class="tag is-link" th:text="${tag.name}" th:href="@{/(tag=${tag.name})}">tag</a>
                                     </div>
                                 </div>
                             </div>

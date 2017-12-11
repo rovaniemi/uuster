@@ -13,6 +13,7 @@ import uuster.repository.AuthorRepository;
 import uuster.repository.NewsPictureRepository;
 import uuster.repository.NewsRepository;
 import uuster.repository.TagRepository;
+import uuster.validator.ArticleEdit;
 import uuster.validator.NewsForm;
 
 import javax.xml.bind.DatatypeConverter;
@@ -38,29 +39,14 @@ public class NewsService {
     private AuthorRepository authorRepository;
 
     @Transactional
-    public void createArticle(MultipartFile file, NewsForm newsForm, Author author){
+    public void createArticle(NewsForm newsForm, Author author){
         NewsPicture picture = new NewsPicture();
         Set<Tag> tagsSet = saveAndLoadTags(newsForm.getTags());
         News news = new News(newsForm.getTitle(), newsForm.getText(), newsForm.getLead(), tagsSet);
         news.getPictures().add(picture);
         news.getAuthors().add(author);
-        if(file != null && !file.isEmpty()) {
-            NewsPicture newsPicture = new NewsPicture();
-            newsPicture.setNews(news);
-            try {
-                newsPicture.setContent(file.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            newsPicture.setContentLength(file.getSize());
-            newsPicture.setContentType(file.getContentType());
-            newsPicture.setName(file.getName());
-            List<NewsPicture> newsPictures = new ArrayList<>();
-            newsPictures.add(newsPicture);
-            news.setPictures(newsPictures);
-            newsPictureRepository.save(newsPicture);
-            newsRepository.save(news);
+        if(newsForm.getFile() != null) {
+            savePicture(news,newsForm.getFile());
         }
     }
 
@@ -81,7 +67,7 @@ public class NewsService {
     }
 
     @Transactional
-    public void createArticle(MultipartFile file, NewsForm newsForm) {
+    public void createArticle(NewsForm newsForm) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
         if (principal instanceof UserDetails) {
@@ -89,31 +75,38 @@ public class NewsService {
         } else {
             username = principal.toString();
         }
-        createArticle(file, newsForm, authorRepository.findByUsername(username));
+        createArticle(newsForm, authorRepository.findByUsername(username));
     }
 
     @Transactional
     public List<News> getNews(String tag, String page) {
         if(isParsable(page) && tagRepository.findByName(tag) != null) {
-            return listWithTag(Integer.parseInt(page), tagRepository.findByName(tag));
+            return listWithTag(Integer.parseInt(page) - 1, tagRepository.findByName(tag));
         } else if (isParsable(page)) {
-            return list(Integer.parseInt(page));
+            return list(Integer.parseInt(page) - 1);
+        } else if (tagRepository.findByName(tag) != null) {
+            return listWithTag(0, tagRepository.findByName(tag));
         } else {
             return list(0);
         }
     }
 
     public List<News> list(Integer page) {
-        Pageable pageable = new PageRequest(page, 10);
+        Pageable pageable = new PageRequest(page, 5);
         return newsRepository.findAll(pageable).getContent();
     }
 
     public List<News> listWithTag(Integer page, Tag tag) {
-        Pageable pageable = new PageRequest(page, 10);
+        Pageable pageable = new PageRequest(page, 5);
         return newsRepository.findAllByTagsContains(tag, pageable);
     }
 
-    public static boolean isParsable(String input){
+    public int getPage(String string) {
+        if(isParsable(string)) return Integer.parseInt(string) + 1;
+        else return 1;
+    }
+
+    public boolean isParsable(String input){
         boolean parsable = true;
         try{
             Integer.parseInt(input);
@@ -131,5 +124,70 @@ public class NewsService {
 
     public List<News> getTop() {
         return this.newsRepository.findTop10ByOrderByCounterDesc();
+    }
+
+    public void deleteArticle(Long id) {
+        News news = newsRepository.getOne(id);
+        news.getPictures().stream().forEach(newsPicture -> newsPictureRepository.delete(newsPicture.getId()));
+        newsRepository.delete(news);
+    }
+
+    @Transactional
+    public void editArticle(long id, ArticleEdit articleEdit, MultipartFile file) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        editArticle(file, articleEdit, authorRepository.findByUsername(username), id);
+    }
+
+    @Transactional
+    public void editArticle(MultipartFile file, ArticleEdit articleEdit, Author author, long id) {
+        News news = newsRepository.getOne(id);
+        news.setTags(saveAndLoadTags(articleEdit.getTags()));
+        news.setText(articleEdit.getText());
+        if(news.getAuthors().stream().filter(e -> e.getUsername().equals(author.getUsername())).count() == 0) news.getAuthors().add(author);
+        news.setTitle(articleEdit.getTitle());
+        news.setLead(articleEdit.getLead());
+        if(file != null && !file.isEmpty()) {
+            news.getPictures().stream().forEach(e -> newsPictureRepository.delete(e.getId()));
+            savePicture(news, file);
+        }
+    }
+
+    public String getTags(long id) {
+        String tagString = "";
+        News news = newsRepository.getOne(id);
+        Tag[] tags = news.getTags().toArray(new Tag[news.getTags().size()]);
+        for (int i = 0; i < tags.length; i++) {
+            if(i < tags.length - 1) {
+                tagString += tags[i].getName() + ", ";
+            } else {
+                tagString += tags[i].getName();
+            }
+        }
+        return tagString;
+    }
+
+    @Transactional
+    public void savePicture(News news, MultipartFile file) {
+        NewsPicture newsPicture = new NewsPicture();
+        newsPicture.setNews(news);
+        try {
+            newsPicture.setContent(file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        newsPicture.setContentLength(file.getSize());
+        newsPicture.setContentType(file.getContentType());
+        newsPicture.setName(file.getName());
+        List<NewsPicture> newsPictures = new ArrayList<>();
+        newsPictures.add(newsPicture);
+        news.setPictures(newsPictures);
+        newsPictureRepository.save(newsPicture);
+        newsRepository.save(news);
     }
 }

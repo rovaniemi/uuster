@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
         http.authorizeRequests()
-                    .antMatchers("/assets/**", "/signup", "/","/h2-console/*"    ).permitAll()
+                    .antMatchers("/assets/**", "/signup", "/", "/h2-console/*","/images/**", "/profile/**"    ).permitAll()
                     .antMatchers(HttpMethod.GET, "/news/**").permitAll()
                     .anyRequest().authenticated()
                     .and()

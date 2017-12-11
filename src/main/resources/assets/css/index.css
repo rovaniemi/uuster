@@ -106,3 +106,9 @@ div.column.is-8:first-child {
 .is-centered {
     justify-content: center;
 }
+
+.right-top {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+}
